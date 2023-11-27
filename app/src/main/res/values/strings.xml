@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ListPay</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="registration">Регистрация</string>
+    <string name="enter">Войти</string>
+    <string name="error_message_fill_all_fields">Заполните все поля!</string>
+    <string name="exit_account">Выйти из аккаунта</string>
+    <string name="confirmation">Подтверждение</string>
+    <string name="are_you_sure">Вы уверены, что хотите выйти из своего аккаунта?</string>
+    <string name="yes">Да</string>
+    <string name="cancel">Отмена</string>
+</resources>
