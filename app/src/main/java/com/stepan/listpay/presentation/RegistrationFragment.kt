@@ -12,6 +12,7 @@ import com.stepan.listpay.data.repository.UserRepositoryImpl
 import com.stepan.listpay.databinding.FragmentRegistrationBinding
 import com.stepan.listpay.domain.model.ResponseResult
 import com.stepan.listpay.domain.usecase.GetTokenUseCase
+import com.stepan.listpay.domain.usecase.LogoutUseCase
 import com.stepan.listpay.presentation.exeption.ExceptionHandler
 import kotlinx.coroutines.launch
 
@@ -20,7 +21,6 @@ class RegistrationFragment : Fragment() {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
     private val tokenUseCase = GetTokenUseCase(UserRepositoryImpl())
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

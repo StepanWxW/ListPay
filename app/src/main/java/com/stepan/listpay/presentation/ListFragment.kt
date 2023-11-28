@@ -6,15 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.stepan.listpay.R
 import com.stepan.listpay.data.ApiClient
 import com.stepan.listpay.data.repository.PaymentRepositoryImpl
-import com.stepan.listpay.data.repository.UserRepositoryImpl
 import com.stepan.listpay.databinding.FragmentListBinding
+import com.stepan.listpay.domain.model.ResponseResult
 import com.stepan.listpay.domain.usecase.GetPaymentsUseCase
+import com.stepan.listpay.domain.usecase.LogoutUseCase
+import com.stepan.listpay.presentation.adapter.PaymentAdapter
+import com.stepan.listpay.presentation.exeption.ExceptionHandler
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
@@ -22,6 +25,7 @@ class ListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private val paymentsUseCase = GetPaymentsUseCase(PaymentRepositoryImpl())
+    private val logoutUseCase = LogoutUseCase()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +38,26 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
-            val listPayments =
+            try {
+                when (val result = paymentsUseCase.getPayments()) {
+                    is ResponseResult.PaymentsResponse -> {
+                        val adapter = PaymentAdapter(result.listPaymentItems)
+                        binding.recyclerView.adapter = adapter
+                        binding.messageError.visibility = View.GONE
+                        binding.recyclerView.visibility = View.VISIBLE
+                    }
+                    is ResponseResult.ErrorResponse -> {
+                        val errorMsg = result.errorMsg
+                        binding.messageError.text = errorMsg
+                        binding.messageError.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
+                    }
+                }
+            } catch (e: Exception) {
+                ExceptionHandler(requireContext()).handleException(e)
+            }
+
+            binding.progressBar.visibility = View.GONE
         }
         buttonExitClick()
     }
@@ -46,7 +69,7 @@ class ListFragment : Fragment() {
                 .setMessage(R.string.are_you_sure)
                 .setPositiveButton(R.string.yes) { _, _ ->
                     findNavController().navigate(R.id.action_listFragment_to_registrationFragment)
-                    ApiClient.setToken("")
+                    logoutUseCase.logout()
                 }
                 .setNegativeButton(R.string.cancel) { dialog, _ ->
                     dialog.dismiss()

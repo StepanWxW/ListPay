@@ -11,7 +11,7 @@ class PaymentRepositoryImpl: PaymentRepository {
             if(response.body()?.success == true) {
                 val body = response.body()?.response
                 if (body != null) {
-                    return ResponseResult.PaymentsResponse(body.)
+                    return ResponseResult.PaymentsResponse(body)
                 }
             } else {
                 return ResponseResult.ErrorResponse(response.body()?.error?.errorCode, response.body()?.error?.errorMsg)

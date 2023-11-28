@@ -1,8 +1,8 @@
 package com.stepan.listpay.data
 
-import com.stepan.listpay.data.model.LoginRequest
-import com.stepan.listpay.data.model.ResponsePaymentsDTO
-import com.stepan.listpay.data.model.ResponseTokenDTO
+import com.stepan.listpay.data.model.login.LoginRequest
+import com.stepan.listpay.data.model.payment.ResponsePaymentsDTO
+import com.stepan.listpay.data.model.login.ResponseTokenDTO
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

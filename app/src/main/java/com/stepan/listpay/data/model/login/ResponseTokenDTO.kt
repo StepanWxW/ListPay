@@ -1,6 +1,6 @@
-package com.stepan.listpay.data.model
+package com.stepan.listpay.data.model.login
 
-import com.google.gson.annotations.SerializedName
+import com.stepan.listpay.data.model.ErrorDTO
 
 
 class ResponseTokenDTO (

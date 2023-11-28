@@ -1,7 +1,7 @@
 package com.stepan.listpay.data.repository
 
 import com.stepan.listpay.data.ApiClient.apiService
-import com.stepan.listpay.data.model.LoginRequest
+import com.stepan.listpay.data.model.login.LoginRequest
 import com.stepan.listpay.domain.model.ResponseResult
 import com.stepan.listpay.domain.repository.UserRepository
 

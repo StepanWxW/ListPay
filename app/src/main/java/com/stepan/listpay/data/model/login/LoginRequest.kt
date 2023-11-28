@@ -1,4 +1,4 @@
-package com.stepan.listpay.data.model
+package com.stepan.listpay.data.model.login
 
 data class LoginRequest(
     val login: String,
